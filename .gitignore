@@ -6,6 +6,7 @@ data
 public_key.pem
 private_key.pem
 .env
+.env.example
 
 # package file
 pnpm-lock.yaml

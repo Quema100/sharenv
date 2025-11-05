@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "bin":{
+    "sharenv": "./bin/clientCli.mjs"
+  },
   "scripts": {
     "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,6 +15,7 @@
   "license": "ISC",
   "packageManager": "pnpm@10.20.0",
   "dependencies": {
+    "commander": "^14.0.2",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "fs-extra": "^11.3.2",
