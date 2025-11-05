@@ -1,0 +1,11 @@
+# folder
+node_modules
+data
+
+# key
+public_key.pem
+private_key.pem
+.env
+
+# package file
+pnpm-lock.yaml
