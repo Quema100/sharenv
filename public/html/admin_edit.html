@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecurEnv Environment Variable Edit</title>
+    <link rel="stylesheet" href="/css/admin_edit.css">
+    <link rel="stylesheet" href="/css/default.css">
+    <script src="/js/themeToggle.js"></script>
+    <script src="/js/admin_edit.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <button onclick="window.location.href='/admin/list'" class="back-button">← Back to List</button>
+        <h2 class="section-header">Edit and Re-encrypt Environment Variables</h2>
+        <p id="modifyStatus">Loading data...</p>
+        <div id="message"></div>
+
+        <form id="modifyForm" style="display:none;">
+            <label>RSA Public Key:
+                <textarea id="modifyRsaPublicKey" class="key-input" placeholder="---BEGIN PUBLIC KEY---"
+                    required></textarea>
+            </label>
+
+            <label>Project/Environment (Read-only):
+                <input type="text" id="modifyProjectEnv" readonly><br>
+            </label>
+
+            <label>Environment Variables and Whitelist (JSON format - editable):
+                <textarea id="modifyEnvData" rows="15" required></textarea>
+            </label>
+            <input type="hidden" id="currentProject">
+            <input type="hidden" id="currentEnv">
+
+            <button type="submit">Encrypt and Save Changes</button>
+        </form>
+    </div>
+
+    <footer>
+        <button id="themeToggle">☼</button>
+    </footer>
+</body>
+
+</html>
