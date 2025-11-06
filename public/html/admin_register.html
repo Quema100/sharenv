@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecurEnv Registration</title>
+    <link rel="stylesheet" href="/css/admin_register.css">
+    <link rel="stylesheet" href="/css/default.css">
+    <script src="/js/themeToggle.js"></script>
+    <script src="/js/admin_register.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <button onclick="window.location.href='/admin/list'" class="back-button">← Back to List</button>
+        <h2 class="section-header">Register and Encrypt New Environment Variables</h2>
+        <div id="message"></div>
+        <form id="envForm">
+            <label>RSA Public Key (contents of public_key.pem):
+                <textarea id="rsaPublicKey" class="key-input" placeholder="-----BEGIN PUBLIC KEY-----..."
+                    required></textarea>
+            </label>
+            <div class="input-group">
+                <div>
+                    <label>Project Name:
+                        <input type="text" id="project" value="my-app" required>
+                    </label>
+                </div>
+                <div>
+                    <label>Environment (dev/stage/prod):
+                        <input type="text" id="env" value="development" required>
+                    </label>
+                </div>
+            </div>
+
+            <label>Environment Variables (JSON format):
+                <textarea id="envData" rows="10" placeholder='{"API_KEY": "secret_123", "DB_USER": "admin"}'
+                    required></textarea>
+            </label>
+
+            <label>Whitelist IP/Token ID List (Comma Separated):
+                <input type="text" id="whitelistIps" placeholder="127.0.0.1, 192.168.1.1, [TOKEN_ID]" required>
+            </label>
+
+            <button id="submit" type="submit">Encrypt and Save to Server</button>
+        </form>
+    </div>
+    <footer>
+        <button id="themeToggle">☼</button>
+    </footer>
+</body>
+
+</html>

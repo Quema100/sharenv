@@ -1,0 +1,78 @@
+body {
+    --bg-primary: #1e1e1e;
+    --bg-secondary: #2a2a2a;
+    --bg-tertiary: #262626;
+    --bg-hover: #333;
+    --bg-active: #444;
+    --border-primary: #333;
+    --border-secondary: #444;
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --text-header: #ffffff;
+    --accent-primary: #5880f0;
+    --accent-secondary: #81a4ff;
+    --accent-success: #43b581;
+    --button-edit: #ffc107;
+    --button-edit-text: #333;
+    --button-view: #007bff;
+}
+
+body.light-mode {
+    --bg-primary: #f0f2f5;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #f9f9f9;
+    --bg-hover: #f1f1f1;
+    --bg-active: #e9ecef;
+    --border-primary: #ddd;
+    --border-secondary: #e0e0e0;
+    --text-primary: #1e1e1e;
+    --text-secondary: #6c757d;
+    --text-header: #007bff;
+    --accent-primary: #007bff;
+    --accent-secondary: #0056b3;
+    --accent-success: #28a745;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    transition: background-color 0.2s;
+}
+
+#themeToggle {
+    font-size: 1.2em;
+    background: none;
+    border: none;
+    cursor: pointer;
+    height: 38px;
+    width: 38px;
+    color: var(--text-secondary);
+}
+
+#message {
+    margin-top: 20px;
+    padding: 12px;
+    border-radius: 6px;
+    display: none;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}

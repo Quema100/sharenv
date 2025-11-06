@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecurEnv control console</title>
+    <link rel="stylesheet" href="/css/admin_list.css">
+    <link rel="stylesheet" href="/css/default.css">
+    <script src="/js/themeToggle.js"></script>
+    <script src="/js/admin_list.js"></script>
+</head>
+
+<body>
+    <div class="master-detail-layout">
+        <div id="sidebar">
+            <div class="sidebar-header">
+                <span>SecurEnv</span>
+                <button id="themeToggle">☼</button>
+            </div>
+
+            <button class="button-base add-button" onclick="window.location.href='/admin/register'">Register New
+                Project</button>
+            <button class="button-base view-all-button" onclick="showAllEnvironments()">View All Environments</button>
+
+            <hr style="border-color: #444; margin: 15px 0;">
+
+            <div class="status-text" id="projectListStatus">Loading list...</div>
+            <div id="projectListWrapper">
+                <div id="projectList" style="margin-top: 10px;">
+                </div>
+            </div>
+            <button class="button-base" style="margin-top: 20px; background-color: #777;" onclick="loadProjectList()">
+                Reload List
+            </button>
+
+            <button class="button-base logout-button" onclick="handleLogout()">Sign Out</button>
+        </div>
+
+        <div id="contentArea">
+            <div id="globalMessage"></div>
+
+            <div id="initialContent">
+                <h2>Welcome!</h2>
+                <p>
+                    Select a project from the list on the left, or click "Register New Project" or "View All Environments".
+                </p>
+            </div>
+
+            <div id="projectDetailView" style="display:none;">
+
+                <div id="envListHeader">
+                    <div>
+                        <div id="envListTitle"></div>
+                        <div id="envMetadata"></div>
+                    </div>
+                </div>
+                <div id="envList">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

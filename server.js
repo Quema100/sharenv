@@ -25,7 +25,7 @@ const ITERATIONS = 100000;
 const SALT_SIZE = 16;
 
 const AUTH_TOKEN_NAME = 'secur_admin_session';
-const COOKIE_MAX_AGE = 3600;
+const COOKIE_MAX_AGE = 1800;
 
 const verifyPassword = (password, storedHash) => {
     try {
@@ -136,6 +136,7 @@ async function startServer() {
 
     app.use(morgan('combined'));
     app.use(express.json());
+    app.use(express.static(path.join(__dirname, 'public')));
     app.use(express.static(path.join(__dirname, 'public/html')));
 
     if (!RSA_PRIVATE_KEY) { process.exit(1); }
@@ -202,6 +203,13 @@ async function startServer() {
         res.status(200).send({ redirect: '/admin/list' });
     });
 
+    app.post('/admin/logout', (req, res) => {
+        res.clearCookie(AUTH_TOKEN_NAME, { path: '/' });
+        res.clearCookie('admin_api_key', { path: '/' });
+
+        res.status(200).send({ redirect: '/' });
+    });
+
     app.get('/admin/list', checkSession, (req, res) => {
         res.sendFile(path.join(__dirname, 'public/html/admin_list.html'));
     });
@@ -220,6 +228,7 @@ async function startServer() {
     app.get('/', (req, res) => {
         res.sendFile(path.join(__dirname, 'public/html/admin_login_form.html'));
     })
+
 
     app.get('/api/v1/env/:project/:env_name', async (req, res) => {
         const { project, env_name } = req.params;
@@ -253,11 +262,38 @@ async function startServer() {
         if (!project || !env || !encryptedData || !encryptedData.data || !encryptedData.key_rsa || !encryptedData.iv) {
             return res.status(400).send('Invalid data payload.');
         }
+
+        if (await fsService.exists(project, env)) {
+            return res.status(409).send(`'${project}/${env}' already exists. Please use the edit page.`);
+        }
+
         try {
             await fsService.saveEncryptedData(project, env, encryptedData);
             res.status(201).send('Environment variables successfully saved and encrypted.');
         } catch (error) {
             res.status(500).send('Failed to save data.');
+        }
+    });
+
+    app.post('/api/v1/admin/delete', apiKeyAuth, async (req, res) => {
+        const { project, env_name } = req.body;
+
+        if (!project || !env_name) {
+            return res.status(400).send('Bad Request: Project and env_name are required.');
+        }
+
+        try {
+            await fsService.deleteEncryptedData(project, env_name);
+
+            if (!(await fsService.exists(project, env_name))) {
+                return res.status(404).send(`'${project}/${env_name}' not found. Please register it first.`);
+            }
+
+            console.log(`[ADMIN] Deleted ENV for ${project}/${env_name} by ${req.ip}`);
+            res.status(200).send('Environment variables successfully deleted.');
+        } catch (error) {
+            console.error(`Admin delete failed: ${error.message}`);
+            res.status(500).send('Failed to delete data.');
         }
     });
 
@@ -272,7 +308,7 @@ async function startServer() {
                     const projectName = dirent.name;
                     const projectPath = path.join(DATA_DIR, projectName);
                     const files = await fs.promises.readdir(projectPath);
-                    const jsonFiles = files.filter(file => file.endsWith('.json')); 
+                    const jsonFiles = files.filter(file => file.endsWith('.json'));
 
                     jsonFiles.forEach(file => {
                         const parts = file.replace('.json', '').split('_');
@@ -280,9 +316,9 @@ async function startServer() {
                         const project = parts.join('_');
                         projects.push({ project, env, file: path.join(projectName, file) });
                     });
-                    res.json(projects);
                 }
             }
+            res.json(projects);
 
         } catch (e) {
             res.status(500).send('Failed to read project list.');

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SecurEnv admin Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/admin_login.css">
+    <link rel="stylesheet" href="/css/default.css">
+    <script src="/js/themeToggle.js"></script>
+    <script src="/js/admin_login.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="administratorAccessTitle">Administrator Access</h1>
+        <p>Password and public key proof are required for access.</p>
+        <div id="message"></div>
+        <form id="loginForm">
+            <label>Administrator Password:
+                <input type="password" id="password" required>
+            </label>
+            <label>RSA Public Key (contents of public_key.pem):
+                <textarea id="rsaPublicKey" class="key-input" placeholder="-----BEGIN PUBLIC KEY-----..."
+                    required></textarea>
+            </label>
+
+            <button id="submit" type="submit">Authenticate and Connect</button>
+        </form>
+    </div>
+    <footer>
+        <button id="themeToggle">☼</button>
+    </footer>
+</body>
+
+</html>
