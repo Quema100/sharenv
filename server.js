@@ -285,10 +285,6 @@ async function startServer() {
         try {
             await fsService.deleteEncryptedData(project, env_name);
 
-            if (!(await fsService.exists(project, env_name))) {
-                return res.status(404).send(`'${project}/${env_name}' not found. Please register it first.`);
-            }
-
             console.log(`[ADMIN] Deleted ENV for ${project}/${env_name} by ${req.ip}`);
             res.status(200).send('Environment variables successfully deleted.');
         } catch (error) {
