@@ -125,14 +125,12 @@ After setup, the server will start.
 
 ## Usage
 ### 1. Admin Panel (Web UI)
-
-Logging In
+#### Logging In
 1. Go to http://localhost:3000 (or your configured URL).
 2. Enter the Admin Password you created during setup.
 3. Open the `public_key.pem` file, copy its entire contents (including `-----BEGIN...-----`), and paste it into the `RSA Public Key` text area.
 4. Click "Authenticate & Connect".
 
-#### Logging In
 #### Managing Projects (List/View)
 
 * Project List (Sidebar): After logging in, you are redirected to `/admin/list`. The sidebar shows a list of all projects.
