@@ -233,7 +233,6 @@ async function startServer() {
     app.get('/api/v1/env/:project/:env_name', async (req, res) => {
         const { project, env_name } = req.params;
         const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-        console.log(clientIp)
         try {
             const encryptedFile = await fsService.getEncryptedData(project, env_name);
             const aesKey = cryptoService.decryptAesKey(encryptedFile.key_rsa, RSA_PRIVATE_KEY);
